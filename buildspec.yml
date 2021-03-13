@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    PROJECT: AspWithNUnit
+    DOTNET_FRAMEWORK: 4.5
+phases:
+    #install:
+        #runtime-versions:
+            #DOTNET_FRAMEWORK: 4.5
+        #commands:
+          #- dotnet tool install -g AWS.CodeArtifact.NuGet.CredentialProvider
+          #- dotnet codeartifact-creds install
+    
+    build:
+        commands:
+           - nuget restore
+           #- apt-get update && apt-get install -y lcov
+           #- genhtml
+           - msbuild AspWithNUnit.sln /p:TargetFrameworkVersion=v4.5 /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
+
+
