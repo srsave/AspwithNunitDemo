@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Pull Code from branch1') {
+        stage('Pull Code from branch') {
             steps {
 		    deleteDir()
                 git branch: 'main', credentialsId: 'hp', url: 'https://github.com/Hiramangp/AspwithNunitDemo.git'
