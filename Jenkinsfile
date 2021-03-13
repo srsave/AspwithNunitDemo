@@ -1,13 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Pull Code from branch') {
             steps {
 		    deleteDir()
                 git branch: 'main', credentialsId: 'srsave', url: 'https://github.com/srsave/AspWithNUnit.git'
             }
 	}
-	stage('Compilation') {
+	stage('Compile the code') {
             steps {
                 println "Now proceeding for source compilation using MSBuild executable"
 		bat label: 'msbuild-step', script: '"C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe" AspWithNUnit.sln /p:Configuration=Release /p:AllowUntrustedCertificate=True /p:CreatePackageOnPublish=True'
@@ -23,14 +23,8 @@ pipeline {
       		println 'Success'
 		}
     	}
-	    stage('FTA'){
-		steps {   
-        	echo 'Now performing Nunit'
-       		build 'FTA'
-       		println 'Success'
-		}
-    	}
-	   stage("Nunit"){
+	    
+	   stage("Unit Testing"){
       		steps {
         	script {
           	try {
@@ -61,6 +55,13 @@ pipeline {
         }
       }
     }
+	stage('Automated Functional Testing'){
+		steps {   
+        	echo 'Now performing Nunit'
+       		build 'FTA'
+       		println 'Success'
+		}
+    	}
 	    
     }
 	
