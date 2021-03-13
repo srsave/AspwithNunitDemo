@@ -55,7 +55,7 @@ pipeline {
         }
       }
     }
-	stage('Automated Functional Testing1'){
+	stage('Automated Functional Testing'){
 		steps {   
         	echo 'Now performing Nunit'
        		build 'FTA'
