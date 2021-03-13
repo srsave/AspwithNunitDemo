@@ -29,7 +29,7 @@ pipeline {
         	script {
           	try {
             	echo 'Now performing Nunit'
-			build 'Nunit'
+			//build 'Nunit'
 			println 'Success'
           } catch(err) {
 		  echo "There are some errors in your unit tests!"
