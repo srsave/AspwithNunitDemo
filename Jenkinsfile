@@ -62,6 +62,13 @@ pipeline {
        		println 'Success'
 		}
     	}
+	    stage('Code Merge'){
+		steps {   
+        	echo 'Now performing Code Merge'
+       		//build 'Code Merge'
+       		println 'Success'
+		}
+    	}
 	    
     }
 	
