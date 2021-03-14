@@ -71,6 +71,8 @@ pipeline {
     	}
 	    stage('Compile the Merge code') {
             steps {
+		     deleteDir()
+                git branch: 'main', credentialsId: 'hp', url: 'https://github.com/Hiramangp/AspwithNunitDemo.git'
                 println "Now proceeding for source compilation using MSBuild executable"
 		bat label: 'msbuild-step', script: '"C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe" AspWithNUnit.sln /p:Configuration=Release /p:AllowUntrustedCertificate=True /p:CreatePackageOnPublish=True'
 		bat label: 'Publish', script: '"C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\MSBuild.exe" AspWithNUnit.sln /p:DeployOnBuild=true /p:PublishProfile=CustomProfile /property:WarningLevel=2;OutDir=%WORKSPACE%\\Publish'
